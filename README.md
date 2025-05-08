@@ -26,7 +26,6 @@ I also uploaded a more complicated version I built later which generates sawtoot
 
 ## Radiative-Convective Model
 Inspired by the Climlab tutorial provided by the University of Albany. 
-![image](https://github.com/user-attachments/assets/e4cae88c-53c9-4827-a91e-fd289e49e2b8)
 
 ## Ice Albedo and Elevation 
 These are two models focusing on the response of ice sheets to the temperature and the feedback of this on planetary temperature. Inspired by the *Building Your Own Climate Model in Python* course provided by the University of Chicago on Couresa. 
