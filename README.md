@@ -6,7 +6,7 @@ Feel free to reach out if you’re interested or have questions — always happy
 # Documentation 
 
 ## Energy Balance Models (EBMs)
-Including two 0D EBMs and one 1D EMB.(Note to self: remember to upload the full scripts as Jupyter Notebooks!) There is also a near-future projection inspired by University of Chicago's online course material.
+Including two 0D EBMs and one 1D EMB. (Note to self: remember to upload the full Jupyter Notebooks scripts and data!) There is also a near-future projection inspired by University of Chicago's online course material.
 
 Here’s what I got when forcing the 0D model with Holocene climate data —
 big thanks to Dr Matt Osman for suggesting the data sources!
