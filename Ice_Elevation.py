@@ -2,18 +2,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from IPython.display import display, clear_output
 
-nX = 10  # number of grid points
-domainWidth = 1e6  # meters
+nX = 10              # number of grid points
+domainWidth = 1e6    # meters
 dX = domainWidth / nX
-timeStep = 100  # years
-nYears = 20000  # years
+timeStep = 100       # years
+nYears = 25000       # years
 nStep = int(nYears / timeStep)
-flowParam = 1e4  # m horizontal / yr
-snowFall = 0.5  # m / y
-plotlimit = 4000
+flowParam = 1e4      # m horizontal / yr
+snowFall = 1         # m / y
+plotlimit = 8000
 
 elevation = np.zeros(nX + 2)  # consider the 'ghost cells' with elevation = 0
-flow = np.zeros(nX + 1)  # flows between each grid cell are calculated
+flow = np.zeros(nX + 1)       # flows between each grid cell are calculated
 
 fig, ax = plt.subplots()
 ax.plot(elevation)
