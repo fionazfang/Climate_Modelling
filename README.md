@@ -24,7 +24,8 @@ A ocean thermodynamics model I built for my Part IB Quaternary Environment super
 ![image](https://github.com/user-attachments/assets/f7aa0da5-eb85-4988-8f05-d9792b7c2ee2)
 I also uploaded a more complicated version I built later which generates sawtooth-like Northern Hemisphere temperature, and also could be played with real temperature input (from NGRIP data).
 
-## Radiative-Convective Model
+## Atmosphere.ipynb
+A notebook containing a series of atmospheric models, including radiative-convectice model, atmospheric layer model, the calculation of orbital cycle and the insolation.
 Inspired by the Climlab tutorial provided by the University of Albany. 
 
 ## Ice Albedo and Elevation 
