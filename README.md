@@ -17,14 +17,14 @@ And here’s the “40 kyr cycle” reproduced using orbital forcing in the 1D E
 
 
 ## Ice Flow Model 
-This is a model I developed for my Part IB Glaciology coursework. I built it based on a base model provided by the department and added certain functions that I feel of interest. The final version incoroprates Glen flow law and Weertman sliding law to simulate glacier motion, and coupled a Degree Day Model to calculate mass balance chnage. Need glacier geometry and climate data to play around (I will upload some sample data later!). 
+This is a model I developed for my Part IB Glaciology coursework. I built it based on a base model provided by the department and added certain functions that I feel of interest. The final version incoroprates Glen flow law and Weertman sliding law to simulate glacier motion, and coupled a Degree Day Model to calculate mass balance chnage. Need glacier geometry and climate data to play around (I will upload the code with some sample input data after my coursework has got marked!). 
 
 ## "Bipolar Seesaw" Model
 A ocean thermodynamics model I built for my Part IB Quaternary Environment supervision, following the fascinating paper by Stocker & Johnsen (2003). Thanks to Anna for helping refine the visualization! Here is a glance of its outputs...
 ![image](https://github.com/user-attachments/assets/f7aa0da5-eb85-4988-8f05-d9792b7c2ee2)
 I also uploaded a more complicated version I built later which generates sawtooth-like Northern Hemisphere temperature, and also could be played with real temperature input (from NGRIP data).
 
-## Atmosphere.ipynb
+## Atmosphere.ipynb: radiative-convective, atmospheric layer, and the orbital cycle
 A notebook containing a series of atmospheric models, including radiative-convectice model, atmospheric layer model, the calculation of orbital cycle and the insolation.
 Inspired by the Climlab tutorial provided by the University of Albany. 
 
