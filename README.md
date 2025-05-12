@@ -6,7 +6,7 @@ Feel free to reach out if you’re interested or have questions — always happy
 # Documentation 
 
 ## Energy Balance Models (EBMs)
-Including two 0D EBMs and one 1D EMB. (Note to self: remember to upload the full Jupyter Notebooks scripts and data!) There is also a near-future projection inspired by University of Chicago's online course material.
+Including two 0D EBMs and one 1D EMB. 
 
 Here’s what I got when forcing the 0D model with Holocene climate data —
 big thanks to Dr Matt Osman for suggesting the data sources!
@@ -14,6 +14,8 @@ big thanks to Dr Matt Osman for suggesting the data sources!
 
 And here’s the “40 kyr cycle” reproduced using orbital forcing in the 1D EBM. 
 ![image](https://github.com/user-attachments/assets/84e15761-8a2b-44a0-9851-7a8cdc50d7ad)
+
+There is also a near-future projection inspired by University of Chicago's online course material.
 
 
 ## Ice Flow Model 
