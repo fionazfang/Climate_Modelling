@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from IPython.display import display, clear_output
 
 nX = 10              # number of grid points
 domainWidth = 1e6    # meters
@@ -15,10 +14,12 @@ plotlimit = 8000
 elevation = np.zeros(nX + 2)  # consider the 'ghost cells' with elevation = 0
 flow = np.zeros(nX + 1)       # flows between each grid cell are calculated
 
+plt.ion()  # Turn on interactive mode
 fig, ax = plt.subplots()
 ax.plot(elevation)
 ax.set_ylim([0, plotlimit])
-plt.show()
+plt.draw()
+plt.pause(0.01)
 
 for itime in range(nStep):
     for ix in range(0, nX + 1):
@@ -31,8 +32,7 @@ for itime in range(nStep):
     ax.clear()
     ax.plot(elevation)
     ax.set_ylim([0, plotlimit])
-    clear_output(wait=True)
-    display(fig)
+    plt.draw()
     plt.pause(0.01)
 
 ax.clear()

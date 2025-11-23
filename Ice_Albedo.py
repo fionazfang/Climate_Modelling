@@ -1,101 +1,93 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Settings
 niters = 100
-timeStep = 100                            # years
-waterDepth = 4000                         # meters
-epsilon = 1
-sigma = 5.67E-8
+dt_years = 100
+epsilon = 1.0
+sigma = 5.67e-8
 
-LRange = [1200, 1600]                     # Watts/m2
-L = LRange [1]                            # starts from the greatest value
+waterDepth = 4000          
+L_range = [1200, 1600]      # W/m2
+L = L_range[1]              # start from high end
+
 albedo = 0.15
+plotType = input("Plot type (iterDown, iterUp, iter, L, lat, albedo): ").strip()
 
-plotType = 'iterDown','iterUp','iter','L', 'lat', 'albedo'
-plotType = input('')
-y = []
 x = []
+y = []
 
-while L > LRange [0]-1:
-    for iter in range (0, niters):
-        T = pow(((1- albedo) * L / (4 * epsilon * sigma)), 0.25)
+# Helpers
+def update_T(L, albedo):
+    return ((1 - albedo) * L / (4 * epsilon * sigma)) ** 0.25
 
-        # albedo
-        albedo = -0.01 * T + 2.8
-        if 0.65 >= albedo and albedo >= 0.15:
-            albedo = albedo
-        elif 0.65 < albedo:
-            albedo = 0.65
-        else:
-            albedo = 0.15
+def update_albedo(T):
+    alb = -0.01 * T + 2.8
+    return np.clip(alb, 0.15, 0.65)
 
-        # latitude
-        lat = 1.5 * T - 322.5
-        if 90 >= lat and lat >= 0:
-            lat = lat
-        elif 90 < lat:
-            lat = 90
-        else:
-            lat = 0
-
-        # plot
-        if plotType == 'iter' or plotType == 'iterDown':
-            x.append (iter)
-            y.append (T)
-    if plotType == 'iter' or plotType == 'iterDown':
-        x.append (numpy.nan)
-        y.append (numpy.nan)
-    if plotType == 'L':
-        x.append (L)
-        y.append (T)
-    if plotType == 'albedo':
-        x.append (albedo)
-        y.append (T)
-    if plotType == 'lat':
-        x.append (L)
-        y.append (lat)
-    L = L - 10
-
-while L < LRange [1]+1:
-    for iter in range (0, niters):
-        T = pow(((1- albedo) * L / (4 * epsilon * sigma)), 0.25)
-
-        # albedo
-        albedo = -0.01 * T + 2.8
-        if 0.65 >= albedo and albedo >= 0.15:
-            albedo = albedo
-        elif 0.65 < albedo:
-            albedo = 0.65
-        else:
-            albedo = 0.15
-
-        # latitude
-        lat = 1.5 * T - 322.5
-        if 90 >= lat and lat >= 0:
-            lat = lat
-        elif 90 < lat:
-            lat = 90
-        else:
-            lat = 0
-
-        # plot
-        if plotType == 'iter' or plotType == 'iterUp':
-            x.append (iter)
-            y.append (T)
-    if plotType == 'iter' or plotType == 'iterUp':
-        x.append (numpy.nan)
-        y.append (numpy.nan)
-    if plotType == 'L':
-        x.append (L)
-        y.append (T)
-    if plotType == 'albedo':
-        x.append (albedo)
-        y.append (T)
-    if plotType == 'lat':
-        x.append (L)
-        y.append (lat)
-    L = L + 10
+def update_latitude(T):
+    lat = 1.5 * T - 322.5
+    return np.clip(lat, 0, 90)
 
 
-plt.plot(x,y)
-plt.show
+while L >= L_range[0]:
+
+    for i in range(niters):
+        T = update_T(L, albedo)
+        albedo = update_albedo(T)
+        lat = update_latitude(T)
+
+        if plotType in ["iter", "iterDown"]:
+            x.append(i)
+            y.append(T)
+
+    if plotType in ["iter", "iterDown"]:
+        x.append(np.nan)
+        y.append(np.nan)
+
+    if plotType == "L":
+        x.append(L)
+        y.append(T)
+    elif plotType == "albedo":
+        x.append(albedo)
+        y.append(T)
+    elif plotType == "lat":
+        x.append(L)
+        y.append(lat)
+
+    L -= 10
+
+
+while L <= L_range[1]:
+
+    for i in range(niters):
+        T = update_T(L, albedo)
+        albedo = update_albedo(T)
+        lat = update_latitude(T)
+
+        if plotType in ["iter", "iterUp"]:
+            x.append(i)
+            y.append(T)
+
+    if plotType in ["iter", "iterUp"]:
+        x.append(np.nan)
+        y.append(np.nan)
+
+    if plotType == "L":
+        x.append(L)
+        y.append(T)
+    elif plotType == "albedo":
+        x.append(albedo)
+        y.append(T)
+    elif plotType == "lat":
+        x.append(L)
+        y.append(lat)
+
+    L += 10
+
+
+plt.plot(x, y)
+plt.xlabel(plotType)
+plt.ylabel("Temperature (K)")
+plt.title("Zero-Dimensional Climate Model")
+plt.show()
