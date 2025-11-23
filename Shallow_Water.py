@@ -7,14 +7,14 @@ plotOutput = True
 
 # Grid and Variable Initialization
 
-ncol = 3  # grid size (number of cells)
+ncol = 7  # grid size (number of cells)
 nrow = ncol
 
 #nSlices, iRowOut, iColOut = input("").split()
 #nSlices, iRowOut, iColOut = [int(nSlices), int(iRowOut), int(iColOut)]
 
 ntAnim  = 1  # number of time steps for each frame
-nSlices = 2
+nSlices = 100
 
 
 
@@ -29,20 +29,20 @@ rotationScheme = "PlusMinus"  # "WithLatitude", "PlusMinus", "Uniform"
 
 windScheme = ""  # "Curled", "Uniform"
 initialPerturbation = "Tower"  # "Tower", "NSGradient", "EWGradient"
-textOutput = False
-plotOutput = False
+textOutput = True
+plotOutput = True
 arrowScale = 30
 
-dT = 600  # seconds
-G = 9.8e-4  # m/s2, hacked (low-G) to make it run faster
+dT = 200            # seconds
+G = 9.8e-4          # m/s2
 HBackground = 4000  # meters
 
-dX = 10.E3  # meters -> a small ocean on a small, low-G planet
+dX = 10.E3          # meters -> a small ocean on a small, low-G planet
 
 dxDegrees = dX / 110.e3
-flowConst = G  # 1/s2
-dragConst = 1.E-6  # about 10 days decay time
-meanLatitude = 30  # degrees
+flowConst = G       # 1/s2
+dragConst = 1.E-6   # about 10 days decay time
+meanLatitude = 30   # degrees
 
 latitude = []
 rotConst = []
@@ -67,7 +67,7 @@ itGlobal = 0
 
 U = numpy.zeros((nrow, ncol + 1))
 V = numpy.zeros((nrow + 1, ncol))
-H = numpy.zeros((nrow, ncol + 1))  # for ghost cells?
+H = numpy.zeros((nrow, ncol + 1))  # for ghost cells...
 dUdT = numpy.zeros((nrow, ncol))
 dVdT = numpy.zeros((nrow, ncol))
 dHdT = numpy.zeros((nrow, ncol))
@@ -97,7 +97,7 @@ def animStep():
         for irow in range(0, nrow):
             for icol in range(0, ncol + 1):
                 if horizontalWrap:
-                    if icol == 0:
+                    if icol == 0 or icol == ncol:
                         dHdX[irow, icol] = (H[irow, icol] - H[irow, -1]) / dX
                     else:
                         dHdX[irow, icol] = (H[irow, icol] - H[irow, icol - 1]) / dX
@@ -110,7 +110,7 @@ def animStep():
         for irow in range(0, nrow):
             for icol in range(0, ncol):
                 if horizontalWrap:
-                    if icol == 0:
+                    if icol == ncol - 1:
                         dUdX[irow, icol] = (U[irow, icol] - U[irow, -1]) / dX
                     else:
                         dUdX[irow, icol] = (U[irow, icol + 1] - U[irow, icol]) / dX
@@ -123,14 +123,14 @@ def animStep():
         # Latitudinal Derivatives (dHdY, dVdY)
         for irow, icol in numpy.ndindex(nrow, ncol):
             if irow == 0:
-                dHdY[irow, icol] = H[irow, icol] - 0
+                dHdY[irow, icol] = (H[irow, icol] - 0) / dX
             else:
                 dHdY[irow, icol] = (H[irow, icol] - H[irow - 1, icol]) / dX
 
         for irow, icol in numpy.ndindex(nrow, ncol):
             if irow == 0:  # Boundary conditions
                 dVdY[irow, icol] = (V[irow + 1, icol] - 0) / dX
-            if irow == nrow -1:
+            elif irow == nrow -1:
                 dVdY[irow, icol] = (0 - V[irow, icol]) / dX
             else:
                 dVdY[irow, icol] = (V[irow + 1, icol] - V[irow, icol]) / dX
@@ -144,7 +144,7 @@ def animStep():
         for irow, icol in numpy.ndindex(nrow, ncol):
             dUdT[irow, icol] = rotV[irow, icol] - flowConst * dHdX[irow, icol] - dragConst * U[irow, icol] + windU[irow]
             dVdT[irow, icol] = - rotU[irow, icol] - flowConst * dHdY[irow, icol] - dragConst * V[irow, icol]
-            dHdT[irow, icol] = - (dUdX[irow, icol] + dVdY[irow, icol]) * HBackground / dX
+            dHdT[irow, icol] = - (dUdX[irow, icol] + dVdY[irow, icol]) * HBackground 
 
         # Step Forward One Time Step
         for irow, icol in numpy.ndindex(nrow, ncol):

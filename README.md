@@ -22,7 +22,25 @@ A ocean thermodynamics model I built for my Part IB Quaternary Environment super
 I also uploaded a more complicated version I built later which generates sawtooth-like Northern Hemisphere temperature, and also could be played with real temperature input (from NGRIP data).
 
 ## Shallow Water Model 
-(Still under development...)
+Here, I am solving a linear rotating shallow water system with gravity waves. I set up a tiny grid, put a small "tower" of extra fluid height in the centre, and let gravity and the Coriolis force evolve it forward. The equations include:
+
+\[
+\frac{\partial u}{\partial t} = fv - g\,\frac{\partial \eta}{\partial x} - r u + \tau_x,
+\qquad
+\frac{\partial v}{\partial t} = -fu - g\,\frac{\partial \eta}{\partial y} - r v,
+\qquad
+\frac{\partial \eta}{\partial t} = -H_0\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\right).
+\]
+
+Where \(u, v\) are velocity components; 
+\(\eta\) is the free-surface height anomaly; 
+\(f\) is Coriolis parameter; 
+\(g\) is gravity (I use a reduced value so the model evolves slowly); 
+\(H_0\) is the background depth; 
+\(r\) is linear drag; 
+and \(\tau_x\) is optional wind forcing. 
+
+By running the model, you should first see the bump radiating gravity waves, which then getting bent by rotation and eventually settling into a geostrophic swirl where pressure gradients and Coriolis forces balance.
 
 ## Ice Albedo and Elevation 
 These are two models focusing on the response of ice sheets to the temperature and the feedback of this on planetary temperature. Inspired by the *Building Your Own Climate Model in Python* course provided by the University of Chicago on Coursera.
