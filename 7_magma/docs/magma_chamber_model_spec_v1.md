@@ -106,6 +106,7 @@ $$T' = \frac{M \cdot T + \Delta M_{\text{in}} \cdot T_{\text{infl}}}{M'}$$
 ## 2.2.2 Elastic pressurisation
 
 $$\Delta P = \frac{K_{\text{eff}} \cdot (V - V_0)}{V_0}$$
+
 $$P = P_{\text{lith}} + \Delta P$$
 
 ---
@@ -113,18 +114,27 @@ $$P = P_{\text{lith}} + \Delta P$$
 ## 2.3 Failure & eruption
 
 ### Stochastic failure criterion
+
 Draw $\xi \sim \mathcal{N}(0, \sigma)$  
+
 Erupt if:
+
 $$P > P_{\text{lith}} + P_{\text{crit}} + \xi$$
 
 ### Eruption size (elastic-limited)
+
 $$\Delta V_{\text{erupt}} = \frac{\Delta P_{\text{max}} \cdot V}{K_{\text{eff}}}$$
+
 $$\Delta M_{\text{erupt}} = \rho_l \cdot \Delta V_{\text{erupt}}$$
 
 ### Update state after eruption
+
 $$M = M - \Delta M_{\text{erupt}}$$
+
 Recompute $v_g$, $v_l$, $v$, $V$
+
 $$P = P_{\text{lith}} + \frac{K_{\text{eff}} \cdot (V - V_0)}{V_0}$$
+
 Log event
 
 ---
