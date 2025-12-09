@@ -24,31 +24,25 @@ I also uploaded a more complicated version I built later which generates sawtoot
 ## 3. Shallow Water Model 
 Here, I am solving a linear rotating shallow water system with gravity waves. I set up a tiny grid, put a small "tower" of extra fluid height in the centre, and let gravity and the Coriolis force evolve it forward. The equations include:
 
-$$
-\frac{\partial u}{\partial t} = fv - g\,\frac{\partial \eta}{\partial x} - r u + \tau_x
-$$
+`\frac{\partial u}{\partial t} = fv - g\,\frac{\partial \eta}{\partial x} - r u + \tau_x`
 
-$$
-\frac{\partial v}{\partial t} = -fu - g\,\frac{\partial \eta}{\partial y} - r v
-$$
+`\frac{\partial v}{\partial t} = -fu - g\,\frac{\partial \eta}{\partial y} - r v`
 
-$$
-\frac{\partial \eta}{\partial t} = -H_0\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\right)
-$$
+`\frac{\partial \eta}{\partial t} = -H_0\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\right)`
 
 Where:
-- $u, v$ are velocity components
-- $\eta$ is the free-surface height anomaly
-- $f$ is Coriolis parameter
-- $g$ is gravity (I use a reduced value so the model evolves slowly)
-- $H_0$ is the background depth
-- $r$ is linear drag
-- $\tau_x$ is optional wind forcing.
+- `u, v` are velocity components
+- `\eta` is the free-surface height anomaly
+- `f` is Coriolis parameter
+- `g` is gravity (I use a reduced value so the model evolves slowly)
+- `H_0` is the background depth
+- `r` is linear drag
+- `\tau_x` is optional wind forcing.
 
 By running the model, you should first see the bump radiating gravity waves, which then getting bent by rotation and eventually settling into a geostrophic swirl where pressure gradients and Coriolis forces balance.
 
 ## 4. Ice Albedo and Elevation 
-These are two models focusing on the response of ice sheets to the temperature and the feedback of this on planetary temperature. Inspired by the *Building Your Own Climate Model in Python* course provided by the University of Chicago on Coursera.
+These are two simple models focusing on the response of ice sheets to the temperature and the feedback of this on planetary temperature. Inspired by the *Building Your Own Climate Model in Python* course provided by the University of Chicago on Coursera.
 
 ## 5. Glacier Mass Balance and Flow  
 This is a model I developed for my Part IB Glaciology coursework. I built it based on a base model provided by the department and added certain functions that I feel of interest. The final version incoroprates Glen flow law and Weertman sliding law to simulate glacier motion, and coupled a Degree Day Model to calculate mass balance chnage. (I will upload the core part of the code after my coursework has got marked!)
@@ -56,12 +50,15 @@ This is a model I developed for my Part IB Glaciology coursework. I built it bas
 ![Comparison of glacier projection uncertainties due to parameter sensitivity vs. inter-GCM climate forcing under RCP scenarios.](assets/fig/2025-glacier-fig5.png)
 
 
-
-## 6. Atmosphere Notebook
+## 6. Basic Atmosphere Models
 This is a notebook containing a series of atmospheric models, including radiative-convectice model, atmospheric layer model, the calculation of orbital cycle and the insolation.
 The script development is inspired by the *Climlab tutorial* provided by the University of Albany. 
 
-## 7. Weather
+## 7. Magma Chamber and Eruption Triggers
+
+## 8. Volcanic Plume 
+
+## 9. Weather
 This isn’t a full-fledged “climate model”; it’s a weather project I built for the *Harvard CS50* course. It uses several APIs to fetch real-time weather data and also identifies the climate zone of the location. It might be especially fun for anyone curious about random geography facts... Feel free to explore! I personally find it super handy for checking travel destinations. Not just for planning outfits based on the weather, but also to get a better sense of the place’s geography :) 
 
 ## Others 
