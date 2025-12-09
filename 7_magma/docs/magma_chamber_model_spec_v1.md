@@ -1,5 +1,6 @@
 # v1 MAGMA CHAMBER MODEL – DEVELOPER SPEC
 
+**Author**: Ziyan Fiona Fang (*zf276@cam.ac.uk*)
 **Goal:**  
 0D magma chamber model with two eruption triggers:
 1. **Crystallisation-induced degassing**
