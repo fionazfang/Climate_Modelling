@@ -11,7 +11,7 @@ This spec defines all state variables, parameters, equations, and numerical work
 
 ---
 
-## 1. State variables
+## 1.1 State variables
 
 **State Variables**
 - `t` : time (s)
@@ -33,7 +33,7 @@ This spec defines all state variables, parameters, equations, and numerical work
 
 ---
 
-## 2. Fixed parameters (minimal v1)
+## 1.2 Fixed parameters
 
 Physical parameters:
 - `K_eff` : effective bulk modulus (Pa)
@@ -51,7 +51,7 @@ Initial state:
 
 ---
 
-## 3. Process A – Cooling & crystallisation
+## 2.1.1 Cooling & crystallisation
 
 1. Euler cooling:  
    `T = T + (-(T - T_host)/tau_T) * dt`
@@ -60,7 +60,7 @@ Initial state:
 
 ---
 
-## 4. Process B – Crystallisation-induced degassing
+## 2.1.2 Crystallisation-induced degassing
 
 1. `C_m = X_tot / f_m`
 2. `C_eq = k * P^n`
@@ -72,7 +72,7 @@ Initial state:
 
 ---
 
-## 5. Process C – Magma recharge (Trigger 2)
+## 2.2.1 Magma recharge
 
 Two influx regimes:
 
@@ -97,14 +97,14 @@ T' = (M*T + ΔM_in*T_infl) / M'
 
 ---
 
-## 6. Process D – Elastic pressurisation
+## 2.2.2 Elastic pressurisation
 
 `ΔP = K_eff * (V - V0) / V0`  
 `P = P_lith + ΔP`
 
 ---
 
-## 7. Process E – Failure & eruption
+## 2.3 Failure & eruption
 
 ### Stochastic failure criterion
 Draw `xi ~ N(0, sigma)`  
@@ -125,7 +125,7 @@ Log event
 
 ---
 
-## 8. Numerical scheme (Euler explicit)
+## 3. Numerical scheme (Euler)
 
 For each timestep:
 ```
@@ -141,7 +141,7 @@ For each timestep:
 
 ---
 
-## 9. Outputs & scenarios
+## 4. Outputs & scenarios
 
 Time series:
 - `t, P, T, phi, X_gas, V, M`
