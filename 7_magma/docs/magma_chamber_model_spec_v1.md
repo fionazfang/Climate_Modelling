@@ -32,7 +32,6 @@ This spec defines all state variables, parameters, equations, and numerical work
 - Gas and liquid-crystal volumes
 - Overpressure: $\Delta P = P - P_{\text{lith}}$
 
----
 
 ## 1.2 Fixed parameters
 
@@ -59,7 +58,6 @@ Initial state:
 2. Crystallinity from $T$ (lever rule)
 3. Melt fraction: $f_m = 1 - \phi$
 
----
 
 ## 2.1.2 Crystallisation-induced degassing
 
@@ -103,7 +101,6 @@ $$X'_{\text{tot}} = \frac{M \cdot X_{\text{tot}} + \Delta M_{\text{in}} \cdot X_
 
 $$T' = \frac{M \cdot T + \Delta M_{\text{in}} \cdot T_{\text{infl}}}{M'}$$
 
----
 
 ## 2.2.2 Elastic pressurisation
 
