@@ -79,23 +79,28 @@ Initial state:
 
 ## 2.2.1 Magma recharge
 
-Two influx regimes:
+Two influx options:
 
-### Constant influx
+1. Constant influx
 - Volume added: $\Delta V_{\text{in}} = Q \cdot \Delta t$
 
-### Poisson pulses
+2. Poisson pulses
 - Probability per step: $p = \lambda \cdot \Delta t$
 - If triggered: pulse volume assigned
 
-Composition options:
-- Basaltic recharge (higher $T_{\text{infl}}$, lower $X_{\text{tot,infl}}$)
-- Rhyolitic recharge (higher $X_{\text{tot,infl}}$)
+Two composition options:
+
+1. Basaltic recharge (higher $T_{\text{infl}}$, lower $X_{\text{tot,infl}}$)
+2. Rhyolitic recharge (higher $X_{\text{tot,infl}}$)
 
 Mass & composition update:
+
 $$\Delta M_{\text{in}} = \rho_l \cdot \Delta V_{\text{in}}$$
+
 $$M' = M + \Delta M_{\text{in}}$$
+
 $$X'_{\text{tot}} = \frac{M \cdot X_{\text{tot}} + \Delta M_{\text{in}} \cdot X_{\text{tot,infl}}}{M'}$$
+
 $$T' = \frac{M \cdot T + \Delta M_{\text{in}} \cdot T_{\text{infl}}}{M'}$$
 
 ---
