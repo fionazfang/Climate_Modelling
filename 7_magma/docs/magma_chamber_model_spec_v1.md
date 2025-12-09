@@ -14,61 +14,65 @@ This spec defines all state variables, parameters, equations, and numerical work
 ## 1.1 State variables
 
 **State Variables**
-- `t` : time (s)
-- `T` : magma temperature (K)
-- `phi` : crystallinity (0–1)
-- `P` : chamber pressure (Pa)
-- `M` : total bulk magma mass (kg) in the chamber
-- `X_tot` : **bulk** volatile mass fraction (kg volatiles / kg bulk)
-- `V` : total chamber magma volume (m³) (diagnostic)
-- `eruption_log`: list of eruption events (time, ΔM, ΔP)
+- $t$ : time (s)
+- $T$ : magma temperature (K)
+- $\phi$ : crystallinity (0–1)
+- $P$ : chamber pressure (Pa)
+- $M$ : total bulk magma mass (kg) in the chamber
+- $X_{\text{tot}}$ : **bulk** volatile mass fraction (kg volatiles / kg bulk)
+- $V$ : total chamber magma volume (m³) (diagnostic)
+- `eruption_log`: list of eruption events (time, $\Delta M$, $\Delta P$)
 
 **Diagnostic Variables**
-- Melt fraction: `f_m = 1 - phi`
-- Volatile concentration in melt: `C_m = X_tot / f_m`
-- Solubility: `C_eq(P)`
-- Exsolved gas fraction: `X_gas = max(0, X_tot - C_eq*f_m)`
+- Melt fraction: $f_m = 1 - \phi$
+- Volatile concentration in melt: $C_m = X_{\text{tot}} / f_m$
+- Solubility: $C_{\text{eq}}(P)$
+- Exsolved gas fraction: $X_{\text{gas}} = \max(0, X_{\text{tot}} - C_{\text{eq}} \cdot f_m)$
 - Gas and liquid-crystal volumes
-- Overpressure: `ΔP = P - P_lith`
+- Overpressure: $\Delta P = P - P_{\text{lith}}$
 
 ---
 
 ## 1.2 Fixed parameters
 
 Physical parameters:
-- `K_eff` : effective bulk modulus (Pa)
-- `P_lith` : lithostatic pressure (Pa)
-- `rho_l` : liquid+crystal density (kg/m³)
-- `R_g` : gas constant (J kg⁻¹ K⁻¹)
-- Solubility law: `C_eq = k * P^n`
-- Crystallinity vs T (lever rule): between `T_liq` and `T_sol`
-- Cooling law:  
-  `dT/dt = -(T - T_host)/tau_T`
+- $K_{\text{eff}}$ : effective bulk modulus (Pa)
+- $P_{\text{lith}}$ : lithostatic pressure (Pa)
+- $\rho_l$ : liquid+crystal density (kg/m³)
+- $R_g$ : gas constant (J kg⁻¹ K⁻¹)
+- Solubility law: $C_{\text{eq}} = k \cdot P^n$
+- Crystallinity vs $T$ (lever rule): between $T_{\text{liq}}$ and $T_{\text{sol}}$
+- Cooling law:
+  $$\frac{dT}{dt} = -\frac{T - T_{\text{host}}}{\tau_T}$$
 
 Initial state:
-- `T0, phi0, P0 = P_lith, M0, X_tot0`
-- Compute initial `V0 = M0 * v0`
+- $T_0$, $\phi_0$, $P_0 = P_{\text{lith}}$, $M_0$, $X_{\text{tot},0}$
+- Compute initial $V_0 = M_0 \cdot v_0$
 
 ---
 
 ## 2.1.1 Cooling & crystallisation
 
-1. Euler cooling:  
-   `T = T + (-(T - T_host)/tau_T) * dt`
-2. Crystallinity from T (lever rule)
-3. Melt fraction: `f_m = 1 - phi`
+1. Euler cooling:
+   $$T^{n+1} = T^n + \left(-\frac{T^n - T_{\text{host}}}{\tau_T}\right) \Delta t$$
+2. Crystallinity from $T$ (lever rule)
+3. Melt fraction: $f_m = 1 - \phi$
 
 ---
 
 ## 2.1.2 Crystallisation-induced degassing
 
-1. `C_m = X_tot / f_m`
-2. `C_eq = k * P^n`
-3. `X_gas = max(0, X_tot - C_eq * f_m)`
-4. Gas volume per kg: `v_g = X_gas * R_g * T / P`
-5. Liquid-crystal volume per kg: `v_l = (1 - X_gas)/rho_l`
-6. Specific volume: `v = v_l + v_g`
-7. Chamber volume: `V = M * v`
+1. $$C_m = \frac{X_{\text{tot}}}{f_m}$$
+2. $$C_{\text{eq}} = k \cdot P^n$$
+3. $$X_{\text{gas}} = \max(0, X_{\text{tot}} - C_{\text{eq}} \cdot f_m)$$
+4. Gas volume per kg:
+   $$v_g = \frac{X_{\text{gas}} \cdot R_g \cdot T}{P}$$
+5. Liquid-crystal volume per kg:
+   $$v_l = \frac{1 - X_{\text{gas}}}{\rho_l}$$
+6. Specific volume:
+   $$v = v_l + v_g$$
+7. Chamber volume:
+   $$V = M \cdot v$$
 
 ---
 
@@ -77,74 +81,68 @@ Initial state:
 Two influx regimes:
 
 ### Constant influx
-- Volume added: `ΔV_in = Q * dt`
+- Volume added: $\Delta V_{\text{in}} = Q \cdot \Delta t$
 
 ### Poisson pulses
-- Probability per step: `p = λ * dt`
+- Probability per step: $p = \lambda \cdot \Delta t$
 - If triggered: pulse volume assigned
 
 Composition options:
-- Basaltic recharge (higher T_infl, lower X_tot_infl)
-- Rhyolitic recharge (higher X_tot_infl)
+- Basaltic recharge (higher $T_{\text{infl}}$, lower $X_{\text{tot,infl}}$)
+- Rhyolitic recharge (higher $X_{\text{tot,infl}}$)
 
 Mass & composition update:
-```
-ΔM_in = rho_l * ΔV_in
-M' = M + ΔM_in
-X_tot' = (M*X_tot + ΔM_in * X_tot_infl) / M'
-T' = (M*T + ΔM_in*T_infl) / M'
-```
+$$\Delta M_{\text{in}} = \rho_l \cdot \Delta V_{\text{in}}$$
+$$M' = M + \Delta M_{\text{in}}$$
+$$X'_{\text{tot}} = \frac{M \cdot X_{\text{tot}} + \Delta M_{\text{in}} \cdot X_{\text{tot,infl}}}{M'}$$
+$$T' = \frac{M \cdot T + \Delta M_{\text{in}} \cdot T_{\text{infl}}}{M'}$$
 
 ---
 
 ## 2.2.2 Elastic pressurisation
 
-`ΔP = K_eff * (V - V0) / V0`  
-`P = P_lith + ΔP`
+$$\Delta P = \frac{K_{\text{eff}} \cdot (V - V_0)}{V_0}$$
+$$P = P_{\text{lith}} + \Delta P$$
 
 ---
 
 ## 2.3 Failure & eruption
 
 ### Stochastic failure criterion
-Draw `xi ~ N(0, sigma)`  
+Draw $\xi \sim \mathcal{N}(0, \sigma)$  
 Erupt if:
-`P > P_lith + P_crit + xi`
+$$P > P_{\text{lith}} + P_{\text{crit}} + \xi$$
 
 ### Eruption size (elastic-limited)
-`ΔV_erupt = (ΔP_max * V) / K_eff`  
-`ΔM_erupt = rho_l * ΔV_erupt`
+$$\Delta V_{\text{erupt}} = \frac{\Delta P_{\text{max}} \cdot V}{K_{\text{eff}}}$$
+$$\Delta M_{\text{erupt}} = \rho_l \cdot \Delta V_{\text{erupt}}$$
 
 ### Update state after eruption
-```
-M = M - ΔM_erupt
-Recompute v_g, v_l, v, V
-P = P_lith + K_eff * (V - V0)/V0
+$$M = M - \Delta M_{\text{erupt}}$$
+Recompute $v_g$, $v_l$, $v$, $V$
+$$P = P_{\text{lith}} + \frac{K_{\text{eff}} \cdot (V - V_0)}{V_0}$$
 Log event
-```
 
 ---
 
 ## 3. Numerical scheme (Euler)
 
 For each timestep:
-```
-1) Update t
-2) Cooling -> T
-3) Crystallinity -> phi, f_m
-4) Recharge -> M, X_tot, T
-5) Degassing -> X_gas, v, V
-6) Pressure -> P
-7) Check failure & erupt if needed
-8) Store outputs
-```
+1. Update $t$
+2. Cooling → $T$
+3. Crystallinity → $\phi$, $f_m$
+4. Recharge → $M$, $X_{\text{tot}}$, $T$
+5. Degassing → $X_{\text{gas}}$, $v$, $V$
+6. Pressure → $P$
+7. Check failure & erupt if needed
+8. Store outputs
 
 ---
 
 ## 4. Outputs & scenarios
 
 Time series:
-- `t, P, T, phi, X_gas, V, M`
+- $t$, $P$, $T$, $\phi$, $X_{\text{gas}}$, $V$, $M$
 - `eruption_log`
 
 Example presets:

@@ -62,6 +62,14 @@ The script development is inspired by the *Climlab tutorial* provided by the Uni
 
 ## 7. Magma Chamber and Eruption Triggers
 
+A minimal 0D magma-chamber model designed to simulate eruption triggering via two key processes which are widely discussed by literature (eg Degruyter & Huber, 2014):
+
+1. **Crystallisation-induced degassing**  
+2. **Magma recharge** 
+
+Eruptions occur when a **stochastic overpressure threshold** is exceeded, with eruption size limited by **elastic host-rock response**.  
+
+
 ## 8. Volcanic Plume 
 
 ## 9. Weather
