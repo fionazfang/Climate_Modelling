@@ -6,7 +6,7 @@
 1. **Crystallisation-induced degassing**
 2. **Magma recharge (basaltic or rhyolitic), with constant or Poisson influx**
 
-Eruptions occur when a **stochastic overpressure threshold** is exceeded, and eruption size is **elastic-limited**. 
+Eruptions occur when a stochastic overpressure threshold is exceeded, and eruption size is elastic-limited. 
 
 This spec defines all state variables, parameters, equations, and numerical workflow for v1.
 
@@ -20,7 +20,7 @@ This spec defines all state variables, parameters, equations, and numerical work
 - $\phi$ : crystallinity (0–1)
 - $P$ : chamber pressure (Pa)
 - $M$ : total bulk magma mass (kg) in the chamber
-- $X_{\text{tot}}$ : **bulk** volatile mass fraction (kg volatiles / kg bulk)
+- $X_{\text{tot}}$ : bulk volatile mass fraction (kg volatiles / kg bulk)
 - $V$ : total chamber magma volume (m³) (diagnostic)
 - `eruption_log`: list of eruption events (time, $\Delta M$, $\Delta P$)
 
